@@ -44,7 +44,6 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.loadNpmTasks('grunt-browserify');
 
     function setEnv() {
         grunt.config('env', process.env.ENV === 'dev' ? 'dev' : 'prod');
@@ -56,17 +55,17 @@ module.exports = function (grunt) {
             'browserify:production';
     }
 
+    grunt.loadNpmTasks('grunt-browserify');
     grunt.registerTask('noop', () => {});
     grunt.registerTask('updateHtml', () => {
         const file = 'index.html';
         let html = grunt.file.read(file);
+
         html = grunt.config('env') === 'dev' ?
             html.replace(/.min.js"/g, '.js"') :
             html.replace(/.min/g, '').replace(/.js"/g, '.min.js"');
         grunt.file.write(file, html);
     });
-    grunt.registerTask('buildDev', ['browserify:development']);
-    grunt.registerTask('buildProd', ['browserify:production']);
     grunt.registerTask('default', [
         setEnv(),
         'updateHtml',
