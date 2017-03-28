@@ -3,12 +3,14 @@
 const grunt = require('grunt');
 const rimraf = require('rimraf');
 
-grunt.registerTask('clean', function() {
+grunt.registerTask('clean', function(arg) {
     let dir = './public';
 
-    if (this.args.length) {
+    if (arg) {
         dir = grunt.config('clean');
-        dir = dir[this.args[0]].destDir
+        if (dir[arg]) {
+            dir = dir[arg].destDir;
+        }
     }
     console.log('Cleaning', dir);
 
