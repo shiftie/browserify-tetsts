@@ -12,7 +12,7 @@ module.exports = function (grunt) {
         fs.readdirSync(dir).forEach(file => {
             filelist = fs.statSync(path.join(dir, file)).isDirectory()
             ? walkSync(path.join(dir, file), filelist)
-            : (file.indexOf('.js') > -1) ? filelist.concat(path.resolve(path.join(dir, file))) : filelist;
+            : (/\.js$/.test(file)) ? filelist.concat(path.resolve(path.join(dir, file))) : filelist;
 
         });
 
@@ -36,17 +36,6 @@ module.exports = function (grunt) {
         });
 
         return bundles;
-    }
-
-     function setEnv() {
-        grunt.config('env', process.env.ENV === 'dev' ? 'dev' : 'prod');
-
-        return 'noop';
-    }
-
-    function getBrowserifyConfig(){
-        return grunt.config('env') === 'dev' ? 'browserify:development' :
-            'browserify:production';
     }
 
     // Removes output folder
@@ -96,7 +85,15 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-browserify');
-    grunt.registerTask('noop', () => {});
+    grunt.registerTask('setEnv', () => {
+        grunt.config('env', process.env.ENV === 'dev' ? 'dev' : 'prod');
+    });
+    grunt.registerTask('launch-browserify', () => {
+        const target = grunt.config('env') === 'dev' ? 'browserify:development' :
+            'browserify:production';
+
+        return grunt.task.run([target]);
+    });
     grunt.registerTask('updateHtml', () => {
         const file = 'index.html';
         let html = grunt.file.read(file);
@@ -107,8 +104,8 @@ module.exports = function (grunt) {
         grunt.file.write(file, html);
     });
     grunt.registerTask('default', [
-        setEnv(),
+        'setEnv',
         'updateHtml',
-        getBrowserifyConfig()
+        'launch-browserify'
     ]);
 };
