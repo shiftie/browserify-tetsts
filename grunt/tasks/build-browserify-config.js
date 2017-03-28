@@ -8,7 +8,7 @@ const getBundles = require('../bundles');
 const getConfig = (buildConfig) => {
     const bundles = getBundles(buildConfig);
     const debug = grunt.config('env') === config.env.dev;
-    console.log('once?', debug);
+
     return {
         src: Object.keys(bundles),
         dest: path.join(
@@ -33,11 +33,21 @@ const getConfig = (buildConfig) => {
                 }]
             ],
             watch: debug,
-            keepAlive: true,
+            keepAlive: debug,
+            postBundleCB: (err, src, next) => {
+                // Fixes https://github.com/jmreidy/grunt-browserify/issues/350
+                setTimeout(()=>{
+                    next(err, src);
+                }, 0);
+            }
         }
     };
 }
 
 grunt.registerTask('build-browserify-config', function(arg) {
-    grunt.config('browserifyConfig', getConfig(config.js[arg]));
+    if (config.js[arg]) {
+        grunt.config('browserifyConfig', getConfig(config.js[arg]));
+    } else {
+        throw grunt.util.error(`Trying to access undefined "${arg}" attribute of config.js.`);
+    }
 });

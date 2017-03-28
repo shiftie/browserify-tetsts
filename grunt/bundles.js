@@ -2,7 +2,6 @@
 
 const path = require('path');
 const fs = require('fs');
-const mkdirp = require('mkdirp');
 const grunt = require('grunt');
 
 // Get .js files from a folder recursively

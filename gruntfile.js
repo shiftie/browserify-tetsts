@@ -13,20 +13,20 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('default', [
-        'zendesk-dev'
+        'zendesk-dev',
     ]);
 
     grunt.registerTask('zendesk-dev', [
         'set-env:dev',
         'clean:zendesk',
-        'updateHtml',
+        'update-html',
         'launch-browserify:zendesk'
     ]);
 
     grunt.registerTask('zendesk-dist', [
         'set-env:prod',
         'clean:zendesk',
-        'updateHtml',
+        'update-html',
         'launch-browserify:zendesk'
     ]);
 

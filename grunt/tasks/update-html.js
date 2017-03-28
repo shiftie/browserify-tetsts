@@ -3,7 +3,7 @@
 const grunt = require('grunt');
 const config = require('../config');
 
-grunt.registerTask('updateHtml', () => {
+grunt.registerTask('update-html', () => {
     const file = 'index.html';
     let html = grunt.file.read(file);
 
