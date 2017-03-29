@@ -2,17 +2,18 @@
 
 const grunt = require('grunt');
 const rimraf = require('rimraf');
+const path = require('path');
 
 grunt.registerTask('clean', function(arg) {
     let dir = './public';
 
     if (arg) {
-        dir = grunt.config('clean');
-        if (dir[arg]) {
-            dir = dir[arg].destDir;
+        const config = grunt.config('clean');
+        if (config[arg] && config[arg].destDir) {
+            dir = config[arg].destDir;
         }
     }
-    console.log('Cleaning', dir);
+    console.log('Cleaning', path.join(__dirname, dir));
 
-    rimraf.sync(dir);
+    rimraf.sync(path.join(__dirname, dir));
 });
