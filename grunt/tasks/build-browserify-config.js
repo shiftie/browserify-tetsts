@@ -7,7 +7,8 @@ const getBundles = require('../bundles');
 
 const getConfig = (buildConfig) => {
     const bundles = getBundles(buildConfig);
-    const debug = grunt.config('env') === config.env.dev;
+    let debug = grunt.config('env') === config.env.dev;
+    debug = true;
 
     return {
         src: Object.keys(bundles),
@@ -17,7 +18,12 @@ const getConfig = (buildConfig) => {
         ),
         options: {
             browserifyOptions: { debug: debug },
-            transform: [['babelify', { 'presets': ['es2015'] }]],
+            transform: [
+                ['babelify', {
+                    'presets': ['es2015']
+                }],
+                'browserify-shim'
+            ],
             plugin: [
                 ['factor-bundle',
                     {
@@ -38,7 +44,7 @@ const getConfig = (buildConfig) => {
                 // Fixes https://github.com/jmreidy/grunt-browserify/issues/350
                 setTimeout(()=>{
                     next(err, src);
-                }, 0);
+                }, 1000);
             }
         }
     };

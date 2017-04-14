@@ -5,17 +5,27 @@ module.exports = {
     },
     'js': {
         'zendesk': {
-            'srcDir': './src',
-            'destDir': './public',
+            'srcDir': './src/js',
+            'destDir': './public/js',
             'entryPoints': [
                 'bootstrap.js',
                 'app.js',
             ],
             'commonFilename': 'common.js',
             'generatedEntryPoints': [
-                './src/pages',
+                './src/js/pages',
             ],
             'prodSuffix': '.min',
         },
+    },
+    'images': {
+        files: {
+            expand: true,
+            src: [
+                './img/*.{png,jpg,jpeg}',
+                './img/{,*/}*.{png,jpg,jpeg}'
+            ],
+            dest: ''
+        }
     }
 };
