@@ -4,15 +4,14 @@ const config = require('./grunt/config');
 
 module.exports = function (grunt) {
     grunt.initConfig({
-        clean: {
-            zendesk: [ config.js.zendesk.destDir ],
-        },
+        meta: config.meta,
+        clean: config.clean,
         imagemin: config.images,
         browserify: '<%= browserifyConfig %>',
     });
 
     grunt.registerTask('default', [
-        'imagemin',
+        // 'imagemin',
         'zendesk-dev',
     ]);
 

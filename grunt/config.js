@@ -1,31 +1,15 @@
+const env = require('./configs/env');
+const js = require('./configs/js');
+const images = require('./configs/images');
+const meta = require('./configs/meta');
+const jscs = require('./configs/jscs');
+const clean = require('./configs/clean');
+
 module.exports = {
-    'env': {
-        'dev': 'dev',
-        'prod': 'prod',
-    },
-    'js': {
-        'zendesk': {
-            'srcDir': './src/js',
-            'destDir': './public/js',
-            'entryPoints': [
-                'bootstrap.js',
-                'app.js',
-            ],
-            'commonFilename': 'common.js',
-            'generatedEntryPoints': [
-                './src/js/pages',
-            ],
-            'prodSuffix': '.min',
-        },
-    },
-    'images': {
-        files: {
-            expand: true,
-            src: [
-                './img/*.{png,jpg,jpeg}',
-                './img/{,*/}*.{png,jpg,jpeg}'
-            ],
-            dest: ''
-        }
-    }
+    'env': env,
+    'js': js,
+    'images': images,
+    'meta': meta,
+    'jscs': jscs,
+    'clean': clean,
 };

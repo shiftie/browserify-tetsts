@@ -1,2 +1,8 @@
 node_modules
-public
+
+public/assets/js
+public/assets/css
+public/assets/sites/relate/js
+public/assets/sites/relate/css
+public/assets/sites/zopim/js
+public/assets/sites/zopim/css

@@ -19,8 +19,8 @@ function walkSync(dir, filelist) {
 // Maps bundles like {source1: output1, source2: output2 ....}
 const getBundles = function(config) {
     let bundles = {};
-    const sourceFolder = path.resolve(config.srcDir);
-    const outputFolder = path.resolve(config.destDir);
+    const sourceFolder = path.resolve(grunt.template.process(config.srcDir));
+    const outputFolder = path.resolve(grunt.template.process(config.destDir));
 
     config.entryPoints.forEach((item) => {
          bundles[path.join(sourceFolder, item)] = path.join(outputFolder, item);
@@ -28,7 +28,7 @@ const getBundles = function(config) {
 
     // Takes all scripts in generatedEntryPoints folder & setups a separate bundle for each file
     config.generatedEntryPoints.forEach((item) => {
-        let generatedEntryPoints = walkSync(path.resolve(item));
+        let generatedEntryPoints = walkSync(path.resolve(grunt.template.process(item)));
         let folders = {};
 
         generatedEntryPoints.map((item) => {

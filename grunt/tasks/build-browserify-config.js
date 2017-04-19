@@ -8,7 +8,7 @@ const getBundles = require('../bundles');
 const getConfig = (buildConfig) => {
     const bundles = getBundles(buildConfig);
     let debug = grunt.config('env') === config.env.dev;
-    debug = true;
+    // debug = true;
 
     return {
         src: Object.keys(bundles),
